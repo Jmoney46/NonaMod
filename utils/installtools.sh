@@ -5,7 +5,7 @@ ARCH="$(uname -m)"
 if [[ "$ARCH" == "x86_64" ]]; then
   BB_URL="https://busybox.net/downloads/binaries/1.36.1-defconfig-multiarch/busybox-x86_64"
   MICRO_URL="https://github.com/zyedidia/micro/releases/download/v2.0.14/micro-2.0.14-linux64.tar.gz"
-  PY_URL="https://github.com/astral-sh/python-build-standalone/releases/latest/download/python-3.11.0-x86_64-unknown-linux-gnu.tar.gz"
+  PY_URL="https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.12.12+20251202-x86_64-unknown-linux-gnu-pgo+lto-full.tar.zst"
 elif [[ "$ARCH" == "aarch64" || "$ARCH" == "armv7l" ]]; then
   BB_URL="https://busybox.net/downloads/binaries/1.36.1-defconfig-multiarch/busybox-armv7l"
   MICRO_URL="https://github.com/zyedidia/micro/releases/download/v2.0.14/micro-2.0.14-linuxarm64.tar.gz"
