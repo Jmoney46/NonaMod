@@ -55,3 +55,11 @@ e2fsck -f /dev/mmcblk1p5
 
 5. Reboot and proceed to installation
 
+## Disable RootFS Verification (if sudo /usr/share/vboot/bin/make_dev_ssd.sh -i /dev/mmcblk0 --remove_rootfs_verification --partitions 2 (or --partitions 4) does not work)
+
+step 1: Open **VT2 Shell**
+
+step 2: cd /usr/share/vboot/bin
+
+step 3: sudo -E /usr/share/vboot/bin/make_dev_ssd.sh --partitions 2
+
