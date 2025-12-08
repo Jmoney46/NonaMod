@@ -6,8 +6,6 @@ This installer sets up the MurkMod plugin environment and installs our enhanced 
 > [!WARNING]
 > **This will replace your current Mush installation** with the Nonagon-modified version.  
 > Back up any important data before continuing.
-
-> [!WARNING]
 > **We are not responsible for any damages to your computer** By using any Nonagon-modified software,  
 > You agree to the terms and conditions.
 ---
