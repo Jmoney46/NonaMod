@@ -40,7 +40,7 @@ curl -fsSLo "$BOOT_SK_DIR" "$BOOT_SKRIPT" || error "Failed to fix boot msg"
 sleep 1
 
 log "Installation complete!"
-echo -e "${YELLOW}Made by Star_destroyer11 and StarkMist111960${RESET}"
+echo -e "${YELLOW}Made by Star_destroyer11 ${RESET}"
 echo -e "${GREEN}MushM installed. Have Fun${RESET}"
 sleep 2
 
