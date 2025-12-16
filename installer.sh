@@ -14,7 +14,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 log "Starting MushM Installer"
-sleep 1
 
 NONA_MOD_CONF="https://raw.githubusercontent.com/NonagonWorkshop/Nonamod/main/utils/nonamod.conf"
 CONF_DIV="/etc/init/nonamod.conf"
@@ -28,20 +27,16 @@ log "Installing Needed Things And Shit"
 mkdir -p "$MURK_DIR/plugins" "$MURK_DIR/pollen" || error "Failed To Installing Needed Things And Shit"
 touch "$CONF_DIV"
 curl -fsSLo "$CONF_DIR" "$NONA_MOD_CONF" || error "Failed to download Config"
-sleep 1
 
 log "Installing MushM"
 curl -fsSLo "$CROSH" "$MUSHM_URL" || error "Failed to download MushM"
-sleep 1
 
 log "Fixing Shity Boot Msg"
 touch "$BOOT_SK_DIR"
 curl -fsSLo "$BOOT_SK_DIR" "$BOOT_SKRIPT" || error "Failed to fix boot msg"
-sleep 1
 
 log "Installation complete!"
 echo -e "${YELLOW}Made by Star_destroyer11 ${RESET}"
-echo -e "${GREEN}MushM installed. Have Fun${RESET}"
 sleep 2
 
 
