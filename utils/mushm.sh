@@ -113,7 +113,7 @@ main() {
 (1) Root Shell                     (26) Firmware Utility
 (2) Chronos Shell                  (27) Check for updates Murkmod
 (3) Crosh                          (28) Check for updates MushM
-(4) Plugins
+(4) Plugins                        (29) Super Secret mode
 (5) Install plugins                                
 (6) Uninstall plugins
 (7) Powerwash
@@ -168,6 +168,7 @@ EOF
         26) runjob run_firmware_util ;;
         27) runjob do_updates && exit 0 ;;
         28) runjob do_mushm_update ;;
+        29) runjob do_ssm ;;
         400) runjob do_dev_updates && exit 0 ;;
         101) runjob hard_disable_nokill ;;
         111) runjob hard_enable_nokill ;;
@@ -190,6 +191,77 @@ EOF
     done
 }
 
+do_ssm() {
+    FLAG_FILE="mnt/stateful_partition/murkmod/super_secret_mode"
+    PASS_FILE="mnt/stateful_partition/murkmod/ssm_pass"
+
+    echo "Welcome to Super Secret Mode, a safety mode that makes it look like Crosh by default.
+There are no commands available except one.
+
+Use login to continue.
+Enter the password you set, or leave it blank if no password is set."
+    echo
+
+    # Check enabled / disabled
+    if [ ! -f "$FLAG_FILE" ]; then
+        echo "Super Secret Mode is currently DISABLED."
+        read -p "Do you want to enable it? (y/n): " choice
+        [[ "$choice" =~ ^[Yy]$ ]] || { echo "No changes made."; return; }
+
+        touch "$FLAG_FILE"
+
+        # Optional password
+        read -p "Set a password (leave blank for none): " -s pass
+        echo
+        if [ -n "$pass" ]; then
+            echo "$pass" > "$PASS_FILE"
+            chmod 600 "$PASS_FILE"
+            echo "Password set."
+        else
+            rm -f "$PASS_FILE"
+            echo "No password set."
+        fi
+    else
+        echo "Super Secret Mode is currently ENABLED."
+        read -p "Do you want to disable it? (y/n): " choice
+        [[ "$choice" =~ ^[Yy]$ ]] || { echo "No changes made."; return; }
+
+        rm -f "$FLAG_FILE" "$PASS_FILE"
+        echo "Super Secret Mode DISABLED."
+        return
+    fi
+
+    # Lock signals
+    trap '' SIGINT SIGTSTP
+    set -o ignoreeof
+
+    echo
+    # Restricted shell
+    while true; do
+        read -p "crosh> " cmd args || continue
+
+        if [ "$cmd" = "login" ]; then
+            if [ -f "$PASS_FILE" ]; then
+                read -p "Password: " -s input
+                echo
+                if [ "$input" != "$(cat "$PASS_FILE")" ]; then
+                    echo "Authentication failed."
+                    continue
+                fi
+            fi
+
+            echo "Authentication successful."
+            echo "Exiting Super Secret Mode."
+
+            # Restore shell
+            trap - SIGINT SIGTSTP
+            set +o ignoreeof
+            break
+        else
+            echo "ERROR: Unknown command"
+        fi
+    done
+}
 
 api_read_file() {
     echo "file to read?"
