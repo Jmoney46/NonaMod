@@ -15,7 +15,7 @@ log "Starting MushM installer."
 
 CROSH="/usr/bin/crosh"
 MURK_DIR="/mnt/stateful_partition/murkmod"
-MUSHM_URL="https://raw.githubusercontent.com/NonagonWorkshop/Nonamod/main/utils/mushm.sh"
+MUSHM_URL="https://raw.githubusercontent.com/Jmoney46/Nonamod/main/utils/mushm.sh"
 BOOT_SCRIPT="https://raw.githubusercontent.com/NonagonWorkshop/Nonamod/main/utils/bootmsg.sh"
 BOOT_DIR="/sbin/chromeos_startup"
 
