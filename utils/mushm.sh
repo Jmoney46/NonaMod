@@ -59,7 +59,7 @@ runjob() {
     )
     trap '' INT
     clear
-} secret
+} 
 
 swallow_stdin() {
     while read -t 0 notused; do
